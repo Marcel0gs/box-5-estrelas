@@ -79,15 +79,17 @@ html.com-intro:not(.intro-fim) .intro{display:block;position:fixed;inset:0;z-ind
 @keyframes intro-apaga{to{opacity:0;visibility:hidden}}
 @keyframes intro-sai{to{opacity:0;scale:.72;translate:0 -70px}}
 @keyframes intro-luz{to{opacity:1}}
-/* a lâmpada do teto: duas piscadas antes de ficar acesa, só na 1a visita */
-html.com-intro .hero img{opacity:0;animation:lampada .9s linear 1.3s forwards,hero-zoom 7s cubic-bezier(.22,.61,.36,1) 1.3s both}
-@keyframes lampada{
-  0%{opacity:0;filter:brightness(.2)}
-  15%{opacity:.6;filter:brightness(1.5)}
-  30%{opacity:.1;filter:brightness(.3)}
-  55%{opacity:.85;filter:brightness(1.4)}
-  72%{opacity:.3;filter:brightness(.5)}
-  100%{opacity:1;filter:brightness(1)}
+/* a lâmpada do topo pisca de leve, mas só uns segundos depois de a pessoa entrar
+   (pedido de 08/11/2026). No começo a foto aparece lisa, sem piscar: a abertura
+   já cobre a tela, e a piscada atrasada não atrapalha quem está lendo o topo.
+   Ele pediu mais rápido depois de ver: 1,4 s de piscada, 6 s de espera. */
+@keyframes lampada-suave{
+  0%{filter:brightness(1)}
+  20%{filter:brightness(1.18)}
+  42%{filter:brightness(.88)}
+  64%{filter:brightness(1.10)}
+  84%{filter:brightness(.95)}
+  100%{filter:brightness(1)}
 }
 /* entrada dos textos do topo: com abertura (a partir de 2,2 s) ou direto, na
    2a visita da sessão. O com-intro vem depois pra vencer no --hi.
@@ -174,9 +176,11 @@ html.com-intro{--hi:2.2s}
 .selos .divisao{opacity:.45}
 /* Golf é paisagem rasa: no celular o recorte desce um pouco, pra o hexágono
    central de luz do teto aparecer acima do título */
-/* a foto aproxima devagar ao abrir e para (07/11/2026, pedido dele). Por `scale`, que
-   não briga com o filtro e a opacidade da animação da lâmpada. */
-.hero img{animation:hero-zoom 7s cubic-bezier(.22,.61,.36,1) .2s both}
+/* a foto do topo: aproxima devagar ao abrir e para (07/11/2026, pedido dele). Por `scale`, que
+   não briga com o filtro e a opacidade da animação da lâmpada.
+   Depois, aos 10 s, a lâmpada do teto pisca de leve (08/11/2026, pedido dele): o piscar
+   antigo vinha junto com a abertura e agora ficou suave e atrasado. */
+.hero img{animation:hero-zoom 7s cubic-bezier(.22,.61,.36,1) .2s both,lampada-suave 1.4s ease 6s}
 @keyframes hero-zoom{from{scale:1}to{scale:1.06}}
 /* botão de agendar do topo: no computador é o amarelo de sempre; o ícone e o verde
    do WhatsApp só entram no celular */
