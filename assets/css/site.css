@@ -192,7 +192,16 @@ html.com-intro{--hi:2.2s}
    Golf no centro, o texto fica embaixo sobre o escuro, linha de olho com barrinha,
    título menor com o destaque em âmbar e os dois botões lado a lado. Sem selos. */
 @media (max-width:700px){
-  .hero img{inset:0 0 auto;height:74%;object-position:50% 50%}
+  /* emblema da Volkswagen no meio do celular (08/11/2026). Na foto de 1600x1284
+     ele fica a 45,5% da largura e a 69,1% da altura. A caixa tem 71,2% da
+     altura do topo, o que põe o emblema no meio da tela (a foto dá zoom até
+     1,06 depois, daí a folga); e o corte vai para 41% para o emblema cair no
+     meio da largura. Onde o navegador entende container query, a conta é exata em
+     qualquer proporção de tela: o emblema fica a 0,4037 x altura do topo da borda
+     esquerda da foto, e o max/min impede que sobre faixa vazia nas laterais. */
+  .hero{container-type:inline-size}
+  .hero img{inset:0 0 auto;height:71.2%;object-position:41% 50%;
+    object-position:max(min(calc(50cqw - .4037 * max(100svh,560px)),0px),calc(100cqw - max(100cqw,.8872 * max(100svh,560px)))) 50%}
   .hero::before{background:
     linear-gradient(180deg,rgba(14,14,15,.72) 0,rgba(14,14,15,.25) 84px,rgba(14,14,15,0) 140px),
     linear-gradient(180deg,rgba(14,14,15,0) 40%,rgba(14,14,15,.5) 54%,rgba(14,14,15,.9) 66%,var(--preto) 76%)}
@@ -650,12 +659,14 @@ html.com-intro{--hi:2.2s}
 /* palavras que sobem, uma a uma, dentro de uma máscara */
 .palavra{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.16em;margin-bottom:-.16em}
 .palavra > i{display:inline-block;font-style:normal;transform:translateY(108%);opacity:0}
+/* o título do topo entra rápido, sem esperar o resto (pedido de 08/11/2026):
+   0,42 s de subida por palavra e 26 ms de intervalo entre elas */
 html.js .reveal-palavras.is-visivel .palavra > i{
-  animation:palavra-sobe .74s cubic-bezier(.16,.84,.3,1) forwards;
-  animation-delay:calc(var(--i,0) * 52ms)}
+  animation:palavra-sobe .42s cubic-bezier(.16,.84,.3,1) forwards;
+  animation-delay:calc(var(--i,0) * 26ms)}
 /* no topo, a entrada espera a abertura terminar (--hi) */
 .hero .reveal-palavras.is-visivel .palavra > i{
-  animation-delay:calc(var(--hi,0s) + var(--i,0) * 52ms)}
+  animation-delay:calc(var(--hi,0s) + var(--i,0) * 26ms)}
 @keyframes palavra-sobe{to{transform:translateY(0);opacity:1}}
 
 /* faixa de serviços rolando, entre as seções */
