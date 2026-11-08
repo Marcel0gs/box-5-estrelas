@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marcel0gs.github.io/box-5-estrelas/sitemap.xml
